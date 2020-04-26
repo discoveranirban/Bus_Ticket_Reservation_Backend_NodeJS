@@ -152,6 +152,29 @@ router.put('/tickets/close/:sNumber', (req, res) => {
 
 
 
+router.put('/tickets/update/:sNumber', (req, res) => {
+    const { sNumber } = req.params
+    const payload = req.body
+
+    Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
+        if (err) res.status(404).json({ message: err })
+        if (ticket) {
+            const user_id = ticket.passenger
+            User.findById(user_id)
+                .then(user => {
+                    if ('name' in payload) user.name = payload.name
+                    if ('sex' in payload) user.sex = payload.sex
+                    if ('age' in payload) user.age = payload.age
+                    if ('phone' in payload) user.phone = payload.phone
+                    user.save()
+                        .then(data => res.status(202).json(data))
+                        .catch(err => res.status(404).json({ message: err }))
+                })
+                .catch(err => res.status(404).json({ message: err }))
+        }
+    })
+})
+
 
 
 

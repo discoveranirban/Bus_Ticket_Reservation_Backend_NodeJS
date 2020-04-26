@@ -2,8 +2,8 @@
 # Content-Type: application/json
 
 
-GET http://localhost:5000/api/tickets/15
-Content-Type: application/json
+# GET http://localhost:5000/api/tickets/14
+# Content-Type: application/json
 
 
 # GET http://localhost:5000/api/tickets/details/14
@@ -14,8 +14,6 @@ Content-Type: application/json
 
 # POST http://localhost:5000/api/issue
 # Content-Type: application/json
-
-
 
 # {
 #     "seat_number":15,
@@ -28,3 +26,12 @@ Content-Type: application/json
 # }
 
 
+PUT http://localhost:5000/api/tickets/update/14
+Content-Type: application/json
+
+{
+    "name":"anirban doofus chakraborty",
+    "sex":"M",
+    "age":"22",
+    "phone":"1234567"
+}
