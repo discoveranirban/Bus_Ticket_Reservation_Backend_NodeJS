@@ -6,6 +6,12 @@ GET http://localhost:5000/api/tickets/15
 Content-Type: application/json
 
 
+# GET http://localhost:5000/api/tickets/details/14
+# Content-Type: application/json
+
+# PUT http://localhost:5000/api/tickets/close/15
+# Content-Type: application/json
+
 # POST http://localhost:5000/api/issue
 # Content-Type: application/json
 

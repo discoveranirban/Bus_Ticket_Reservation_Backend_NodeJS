@@ -132,6 +132,23 @@ router.get('/tickets/details/:sNumber', (req, res) => {
     })
 })
 
+router.put('/tickets/close/:sNumber', (req, res) => {
+    const { sNumber } = req.params
+    Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
+        if (err) res.status(404).json({ message: err })
+        if (ticket) {
+            User.deleteOne({_id:ticket.passenger},(err,udel)=> {
+                if (err) res.status(404).json({ message: err })
+                if (udel){
+                    Ticket.deleteOne({seat_number:sNumber}, (err,tdel) =>{
+                        if (err) res.status(404).json({ message: err })
+                        if (tdel) res.status(200).json('Ticket is closed');
+                    })
+                }
+            })
+        }
+    })
+})
 
 
 
