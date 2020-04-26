@@ -1,5 +1,5 @@
 const Joi = require('joi')
-
+const Ticket=require('../model/Ticket');
 
 function userValidation(user){
     const userValSchema=Joi.object().keys({
@@ -21,7 +21,45 @@ function userValidation(user){
     return result
 }
 
+// function ticketValidation(seat_number){
+
+//     let result = null
+
+//     Ticket.findOne({seat_number})
+//           .then(function(doc){
+//               if(!doc){
+//                   console.log("if");
+//                   result=true;
+//               }
+//               else{
+//                   console.log("el");
+//                   result=false;
+//               }
+//           })
+//     return result;
+// }
+
+
+function ticketValidation(seat_number){
+
+    return new Promise((resolve,reject)=>{
+        Ticket.findOne({seat_number})
+          .then(function(doc){
+              if(!doc){
+                  //console.log("if");
+                  resolve();
+              }
+              else{
+                  //console.log("el");
+                  reject();
+              }
+          })
+    });
+}
+
+
 
 module.exports = {
-    userValidation: userValidation
+    userValidation: userValidation,
+    ticketValidation: ticketValidation
 }
