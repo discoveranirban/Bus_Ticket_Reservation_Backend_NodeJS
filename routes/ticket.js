@@ -10,7 +10,8 @@ const ticketValidation=validation.ticketValidation;
 router.post('/issue', (req,res)=>{
     
     let [result, data] = userValidation(req.body.passenger);
-    if (!result) return res.status(500).json('Data error');
+    if (!result) return res.status(500).json('Please check the passenger details');
+    if(req.body.seat_number<1||req.body.seat_number>40) return res.status(500).json('Please select from the available range 1-40'); 
     ticketValidation(req.body.seat_number).then(
         ()=>{
             const ticket = new Ticket({ seat_number: req.body.seat_number });
@@ -47,16 +48,9 @@ router.post('/issue', (req,res)=>{
             return res.status(500).json('Seat not available');
         }
     );
+});
 
-
-    const ticket = new Ticket({ seat_number: req.body.seat_number });
-    const { name,sex,age,phone }= req.body.passenger;
-    const user=new User({
-        name,
-        sex,
-        age,    
-        phone
-    });
+    
 
     // //(Another Pattern)
     // user.save()
@@ -75,6 +69,14 @@ router.post('/issue', (req,res)=>{
     //     .catch(err => res.status(404).json({ message: err }))
 
 
+    // const ticket = new Ticket({ seat_number: req.body.seat_number });
+    // const { name,sex,age,phone }= req.body.passenger;
+    // const user=new User({
+    //     name,
+    //     sex,
+    //     age,    
+    //     phone
+    // });
     // user.save(function(err,data){
     //     if(err){
     //         res.status(500).json('Server error');
@@ -96,7 +98,44 @@ router.post('/issue', (req,res)=>{
 
     // })
 
-});
+
+
+
+
+router.get('/tickets/closed', (req, res) => {
+    Ticket.find({ is_booked: true }, (err, data) => {
+        if (err) res.status(404).json({ message: err })
+        if (data) res.status(200).json(data)
+    })
+})
+
+router.get('/tickets/:sNumber', (req, res) => {
+    const { sNumber } = req.params
+    Ticket.find({ seat_number:sNumber }, (err, seat) => {
+        if (err) res.status(404).json({ message: err })
+        if (seat.length==1) res.status(200).json({ status:seat[0].is_booked })
+        else res.status(200).json({ status:false })
+    })
+})
+
+
+router.get('/tickets/details/:sNumber', (req, res) => {
+    const { sNumber } = req.params
+    Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
+        if (err) res.status(404).json({ message: err })
+        if (ticket) {
+            User.findById(ticket.passenger, (err, user) => {
+                if (err) res.status(404).json({ message: err })
+                if (user) res.status(200).json(user)
+            })
+        }
+    })
+})
+
+
+
+
+
 
 
 module.exports=router;
