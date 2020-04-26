@@ -1,0 +1,12 @@
+POST http://localhost:5000/api/issue
+Content-Type: application/json
+
+{
+    "seat_number":1,
+    "passenger":{
+        "name":"a",
+        "sex":"M",
+        "age":"22",
+        "phone":"9674812345"
+    }
+}

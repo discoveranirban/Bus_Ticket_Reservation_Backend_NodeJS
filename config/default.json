@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://anirban:anirban@urldata-0ctgt.mongodb.net/test?retryWrites=true&w=majority",
+    "baseURL": "http://localhost:5000"
+}
