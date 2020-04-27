@@ -7,12 +7,7 @@ const validation=require('../validations/validator');
 const userValidation = validation.userValidation;
 const ticketValidation=validation.ticketValidation;
 
-
-let mySet = new Array();
-    for(var i=1;i<41;i++){
-        mySet.push(i);
-    }
-
+//API to issue a ticket
 router.post('/issue', (req,res)=>{
     
     let [result, data] = userValidation(req.body.passenger);
@@ -104,7 +99,7 @@ router.post('/issue', (req,res)=>{
 
     // })
 
-
+//API to fetch closed seats
 router.get('/tickets/closed', (req, res) => {
     Ticket.find({ is_booked: true }, (err, data) => {
         if (err) res.status(404).json({ message: err })
@@ -165,11 +160,13 @@ router.put('/tickets/close/:sNumber', (req, res) => {
 })
 
 
-
+//API to update ticket details
 router.put('/tickets/update/:sNumber', (req, res) => {
     const { sNumber } = req.params
     const payload = req.body
-
+    if(sNumber<1 || sNumber>40){
+        return res.status(200).json("Invalid ticket number");
+    }
     Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
         if (err) res.status(404).json({ message: err })
         if (ticket) {
@@ -186,14 +183,16 @@ router.put('/tickets/update/:sNumber', (req, res) => {
                 })
                 .catch(err => res.status(404).json({ message: err }))
         }
+        else{
+            res.status(200).json("No such ticket exists");
+        }
     })
 })
 
 
 
+//API to view availabe seats
 router.get('/tickets/status/open', (req, res) => {
-
-    
     let seat_stat;
     var unreserved_seats;
     const promise0 = new Promise(function(resolve, reject) {
