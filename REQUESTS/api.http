@@ -1,9 +1,11 @@
-GET http://localhost:5000/api/tickets/status/open
-Content-Type: application/json
-
-
-# GET http://localhost:5000/api/tickets/14
+# GET http://localhost:5000/api/tickets/status/open
 # Content-Type: application/json
+
+# GET http://localhost:5000/api/tickets/closed
+# Content-Type: application/json
+
+GET http://localhost:5000/api/tickets/60
+Content-Type: application/json
 
 
 # GET http://localhost:5000/api/tickets/details/14
@@ -16,7 +18,7 @@ Content-Type: application/json
 # Content-Type: application/json
 
 # {
-#     "seat_number":30,
+#     "seat_number":10,
 #     "passenger":{
 #         "name":"nabrina",
 #         "sex":"M",
@@ -26,12 +28,12 @@ Content-Type: application/json
 # }
 
 
-# PUT http://localhost:5000/api/tickets/update/14
+# PUT http://localhost:5000/api/tickets/update/10
 # Content-Type: application/json
 
 # {
-#     "name":"anirban doofus chakraborty",
+#     "name":"anirban chakraborty",
 #     "sex":"M",
 #     "age":"22",
-#     "phone":"1234567"
+#     "phone":"949888995"
 # }

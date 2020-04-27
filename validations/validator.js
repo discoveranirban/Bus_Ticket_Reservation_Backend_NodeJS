@@ -14,30 +14,11 @@ function userValidation(user){
             result = [false, err]
         }
         else {
-            //let d="an error man!";
             result = [true, data]
         }
     })
     return result
 }
-
-// function ticketValidation(seat_number){
-
-//     let result = null
-
-//     Ticket.findOne({seat_number})
-//           .then(function(doc){
-//               if(!doc){
-//                   console.log("if");
-//                   result=true;
-//               }
-//               else{
-//                   console.log("el");
-//                   result=false;
-//               }
-//           })
-//     return result;
-// }
 
 
 function ticketValidation(seat_number){
@@ -46,11 +27,9 @@ function ticketValidation(seat_number){
         Ticket.findOne({seat_number})
           .then(function(doc){
               if(!doc){
-                  //console.log("if");
                   resolve();
               }
               else{
-                  //console.log("el");
                   reject();
               }
           })

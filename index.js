@@ -27,37 +27,6 @@ Status.deleteMany({id:"seat_details"},(err,result) => {
     }
 })
 
-// const unreserved=new Status({seat_status:mySet});
-//     unreserved.save(function(err,data){
-//         if(err) console.log("Please restart the server");
-//         if(data) console.log("Seats details fetched");
-//     })
-
-// const promise1 = new Promise(function(resolve, reject) {
-//     Ticket.find({ is_booked: true }, (err, data) => {
-//         if (err) reject();
-//         if (data) {
-//             data.forEach(element=>{
-//                 const index = mySet.indexOf(element.seat_number);
-//                 mySet.splice(index, 1);
-//             })
-//             resolve (mySet);
-//         }
-//     })
-//   });
-
-//   promise1.then(
-//       ()=>{
-//         const unreserved=new Status({seat_status:mySet});
-//         unreserved.save(function(err,data){
-//             if(err) console.log("Please restart the server");
-//             if(data) console.log("Seats details fetched");
-//         })
-//       },
-//       ()=>console.log("Please restart the server")
-//   )
-
-
 
 app.use('/api',require('./routes/ticket'));
 
