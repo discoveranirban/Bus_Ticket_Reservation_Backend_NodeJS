@@ -112,8 +112,12 @@ router.get('/tickets/closed', (req, res) => {
     })
 })
 
+//API to fetch ticket status
 router.get('/tickets/:sNumber', (req, res) => {
     const { sNumber } = req.params
+    if(sNumber<1 || sNumber>40){
+        return res.status(200).json("Invalid ticket number");
+    }
     Ticket.find({ seat_number:sNumber }, (err, seat) => {
         if (err) res.status(404).json({ message: err })
         if (seat.length==1) res.status(200).json({ status:seat[0].is_booked })
@@ -121,7 +125,7 @@ router.get('/tickets/:sNumber', (req, res) => {
     })
 })
 
-
+//API to fetch ticket owner details
 router.get('/tickets/details/:sNumber', (req, res) => {
     const { sNumber } = req.params
     Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
@@ -132,9 +136,13 @@ router.get('/tickets/details/:sNumber', (req, res) => {
                 if (user) res.status(200).json(user)
             })
         }
+        else{
+            res.status(200).json("Ticket not found");
+        }
     })
 })
 
+//API to close a ticket
 router.put('/tickets/close/:sNumber', (req, res) => {
     const { sNumber } = req.params
     Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
@@ -149,6 +157,9 @@ router.put('/tickets/close/:sNumber', (req, res) => {
                     })
                 }
             })
+        }
+        else{
+            res.status(200).json("No such ticket exists");
         }
     })
 })
