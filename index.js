@@ -2,6 +2,7 @@ const express=require('express');
 const connectDB=require('./config/db');
 const Status=require('./model/Status');
 const Ticket=require('./model/Ticket');
+const mongoose=require('mongoose');
 
 const app=express();
 
@@ -15,12 +16,22 @@ for(var i=1;i<41;i++){
     mySet.push(i);
 }
 
+Status.deleteMany({id:"seat_details"},(err,result) => {
+    if(err) console.log("Please restart the server");
+    else{
+        const unreserved=new Status({seat_status:mySet});
+        unreserved.save(function(err,data){
+            if(err) console.log("Please restart the server");
+            if(data) console.log("Seats Initialized");
+        })
+    }
+})
 
-const unreserved=new Status({seat_status:mySet});
-    unreserved.save(function(err,data){
-        if(err) console.log("Please restart the server");
-        if(data) console.log("Seats details fetched");
-    })
+// const unreserved=new Status({seat_status:mySet});
+//     unreserved.save(function(err,data){
+//         if(err) console.log("Please restart the server");
+//         if(data) console.log("Seats details fetched");
+//     })
 
 // const promise1 = new Promise(function(resolve, reject) {
 //     Ticket.find({ is_booked: true }, (err, data) => {
