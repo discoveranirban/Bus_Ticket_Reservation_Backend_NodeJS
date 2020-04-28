@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const config=require('config');
+const uName=config.get('username');
 const User=require('../model/User');
 const Ticket=require('../model/Ticket');
 const Status=require('../model/Status');
@@ -185,6 +187,31 @@ router.get('/tickets/status/open', (req, res) => {
     )
    
     
+})
+
+
+//API to reset the server
+router.post('/reset', (req,res)=>{
+    if (!("username" in req.body)) {
+        res.status(400).json({ message: "username is needed in request body" })
+    }
+    const { username } = req.body;
+
+    if (!(username === uName)) {
+        res.status(400).json({ message: "username is incorrect" })
+    }
+
+    Ticket.deleteMany({delId:"del_T"},(err,result) =>{
+        if(err) res.status(404).json({ message: err })
+        if(result){
+            User.deleteMany({delId:"del_U"},(err,data) =>{
+                if(err) res.status(404).json({ message: err })
+                if(data) res.status(200).json({ message: "success" })
+            })
+        }
+    })
+
+
 })
 
 module.exports=router;
