@@ -95,6 +95,12 @@ router.get('/tickets/details/:sNumber', (req, res) => {
 //API to close a ticket
 router.put('/tickets/close/:sNumber', (req, res) => {
     const { sNumber } = req.params
+    if(isNaN(sNumber)){
+        return res.status(200).json("Invalid ticket number");
+    }
+    if(sNumber<1 || sNumber>40){
+        return res.status(200).json("Invalid ticket number");
+    }
     Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
         if (err) res.status(404).json({ message: err })
         if (ticket) {
@@ -119,9 +125,13 @@ router.put('/tickets/close/:sNumber', (req, res) => {
 router.put('/tickets/update/:sNumber', (req, res) => {
     const { sNumber } = req.params
     const payload = req.body
+    if(isNaN(sNumber)){
+        return res.status(200).json("Invalid ticket number");
+    }
     if(sNumber<1 || sNumber>40){
         return res.status(200).json("Invalid ticket number");
     }
+    
     Ticket.findOne({seat_number:sNumber}, (err, ticket) => {
         if (err) res.status(404).json({ message: err })
         if (ticket) {
@@ -213,5 +223,8 @@ router.post('/reset', (req,res)=>{
 
 
 })
+
+//API to handle unknown requests
+router.get('*', function(req, res) { res.status(404).json({ message: "no such route found!" })});
 
 module.exports=router;
