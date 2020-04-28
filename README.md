@@ -1,8 +1,8 @@
 A bus ticket booking api server build on express.js with MongoDB as the backend.
 
-API docs:   
+**API docs:   
   
-POST '/api/issue'
+**POST '/api/issue'**
 * Create a ticket in tickets collection and corresponding user in user collection with seat_number. 
 * All of the attributes are required. 
 * payload:  
@@ -16,18 +16,18 @@ POST '/api/issue'
     }
 }   
 
-GET '/api/tickets/closed'
+**GET '/api/tickets/closed'**
 * Get list of all researved seats. 
   
-GET '/api/tickets/:number'
+**GET '/api/tickets/:number'**
 * Get status of the ticket. 
 * All of the attributes are required. 
   
-GET '/api/tickets/close/:number'
+**GET '/api/tickets/close/:number'**
 * Close the status of ticket 
 * All of the attributes are required. 
 
-PUT '/api/tickets/update/:number'
+**PUT '/api/tickets/update/:number'**
 * Update the user details of the ticket. 
 * All of the attributes are required. 
 * payload:  
@@ -41,11 +41,11 @@ PUT '/api/tickets/update/:number'
     }
 } 
   
-GET '/api/tickets/status/open'
+**GET '/api/tickets/status/open'**
 * Get the list of available seats.
 * All of the attributes are required.  
   
-POST '/api/reset'
+**POST '/api/reset'**
 * Reset the server. open up all tickets 
 * All of the attributes are required. 
 * payload:  
