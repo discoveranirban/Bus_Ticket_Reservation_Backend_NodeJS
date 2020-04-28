@@ -1,6 +1,6 @@
 A bus ticket booking api server build on express.js with MongoDB as the backend.
 
-**API docs:   
+**API docs:**
   
 **POST '/api/issue'**
 * Create a ticket in tickets collection and corresponding user in user collection with seat_number. 
